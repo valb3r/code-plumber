@@ -1,8 +1,7 @@
-group 'com.helpers.classrelationship'
-version '1.0.0-SNAPSHOT'
-
-apply plugin: 'groovy'
-apply plugin: 'java'
+plugins {
+    id 'java'
+    id 'groovy'
+}
 
 sourceCompatibility = 1.14
 
