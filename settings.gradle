@@ -1,0 +1,5 @@
+rootProject.name = 'Code Plumber'
+
+include 'java-bcel-ingestor'
+
+project(":java-bcel-ingestor").projectDir = file("ingestors/java-bcel-code-analyzer")
