@@ -13,16 +13,17 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.springframework.data:spring-data-neo4j'
+
+    implementation 'org.neo4j:neo4j-graphql-java:1.0.0-M03'
+    implementation 'org.neo4j:neo4j-ogm-core:3.2.10'
+    implementation 'org.neo4j:neo4j-ogm-bolt-driver:3.2.9'
+    implementation 'org.neo4j:neo4j-ogm-bolt-native-types:3.2.10'
     implementation 'com.graphql-java-kickstart:graphql-spring-boot-starter:7.0.0'
-    implementation 'org.neo4j:neo4j:4.0.2'
 }
 
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-}
-
-configurations {
-    all*.exclude module : 'spring-boot-starter-logging'
 }
