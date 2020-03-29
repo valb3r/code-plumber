@@ -1,11 +1,12 @@
 package com.valb3r.codeplumber.ingestors.javabcel.neo4j.persistor.calls.fields
 
 import com.google.common.collect.ImmutableMap
-import com.valb3r.codeplumber.ingestors.javabcel.neo4j.persistor.Constants
-import com.valb3r.codeplumber.ingestors.javabcel.neo4j.persistor.calls.AbstractInMethodActionPersistor
+import com.google.common.collect.Iterables
 import com.valb3r.codeplumber.ingestors.javabcel.analysis.ClassRegistry
 import com.valb3r.codeplumber.ingestors.javabcel.analysis.method.finegrained.FieldCallAnalyzer
 import com.valb3r.codeplumber.ingestors.javabcel.neo4j.CodeRelationships
+import com.valb3r.codeplumber.ingestors.javabcel.neo4j.persistor.Constants
+import com.valb3r.codeplumber.ingestors.javabcel.neo4j.persistor.calls.AbstractInMethodActionPersistor
 import org.neo4j.batchinsert.BatchInserter
 import org.neo4j.graphdb.RelationshipType
 
@@ -38,8 +39,12 @@ class FieldsCallPersistor extends AbstractInMethodActionPersistor<FieldCallAnaly
 
         callsByMode.forEach { mode, byMode ->
             byMode.groupBy {it}.forEach {id, calls ->
-                inserter.createRelationship(originEntityId, Iterables.first(calls),
-                        RELATIONSHIPS[mode], [(Constants.Field.CALL_COUNT): calls.size()])
+                inserter.createRelationship(
+                        originEntityId,
+                        Iterables.getFirst(calls, null),
+                        RELATIONSHIPS[mode],
+                        [(Constants.Field.CALL_COUNT): calls.size()]
+                )
             }
         }
     }

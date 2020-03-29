@@ -1,6 +1,9 @@
 package com.valb3r.codeplumber.ingestors.javabcel.neo4j
 
 import org.neo4j.batchinsert.BatchInserter
+import org.neo4j.batchinsert.BatchInserters
+import org.neo4j.configuration.Config
+import org.neo4j.io.layout.DatabaseLayout
 
 class Neo4j {
 
@@ -18,7 +21,10 @@ class Neo4j {
     private final BatchInserter inserter
 
     Neo4j(File store) {
-        this.inserter = BatchInserters.inserter(store, CONFIG)
+        this.inserter = BatchInserters.inserter(
+                DatabaseLayout.ofFlat(store),
+                Config.newBuilder().setRaw(CONFIG).build()
+        )
     }
 
     BatchInserter getInserter() {

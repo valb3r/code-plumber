@@ -1,6 +1,6 @@
 package com.valb3r.codeplumber.ingestors.javabcel.neo4j.persistor.calls.clazz
 
-
+import com.google.common.collect.Iterables
 import com.valb3r.codeplumber.ingestors.javabcel.analysis.method.finegrained.ClassNameReferenceAnalyzer
 import com.valb3r.codeplumber.ingestors.javabcel.neo4j.persistor.Constants
 import com.valb3r.codeplumber.ingestors.javabcel.neo4j.persistor.calls.AbstractInMethodActionPersistor
@@ -31,7 +31,7 @@ class NameReferencerPersistor extends AbstractInMethodActionPersistor<ClassNameR
         callsWithCount.forEach {id, clzCalls ->
             inserter.createRelationship(
                     originEntityId,
-                    Iterables.first(clzCalls),
+                    Iterables.getFirst(clzCalls, null),
                     CodeRelationships.Relationships.USES_CLASS_NAME,
                     [(Constants.StaticReference.CALL_COUNT): clzCalls.size()]
             )
